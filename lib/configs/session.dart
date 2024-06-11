@@ -1,25 +1,23 @@
 import 'package:get_storage/get_storage.dart';
 
-abstract class SessionStorage {
-  final session = GetStorage("session");
+class SessionStorage {
+  final GetStorage _session;
 
-  SesstionStorage() {
-    session;
+  SessionStorage() : _session = GetStorage("session");
+
+  Future<void> write(String key, dynamic data) async {
+    await _session.write(key, data);
   }
 
-  void write({required String key, required dynamic data}) {
-    session.write(key, data);
+  Future<dynamic> read(String key) async {
+    return await _session.read(key);
   }
 
-  dynamic read({required String key}) {
-    return session.read(key);
+  Future<void> remove(String key) async {
+    await _session.remove(key);
   }
 
-  void remove({required String key}) {
-    session.remove(key);
-  }
-
-  void erase() {
-    session.erase();
+  Future<void> erase() async {
+    await _session.erase();
   }
 }

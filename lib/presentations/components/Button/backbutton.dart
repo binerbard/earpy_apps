@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class EarpyBackButton extends StatelessWidget {
   final void Function() onTap;
-  const EarpyBackButton({super.key, required this.onTap});
+  final String title;
+  const EarpyBackButton({super.key, required this.onTap, this.title = "Earpy"});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class EarpyBackButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,
         ),
-        child: const Row(
+        child: Row(
           children: [
             Icon(
               Icons.arrow_back,
@@ -25,7 +26,7 @@ class EarpyBackButton extends StatelessWidget {
               width: 10,
             ),
             Text(
-              'Earpy',
+              title, // Remove "${}" to directly use variable
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.pinkAccent,

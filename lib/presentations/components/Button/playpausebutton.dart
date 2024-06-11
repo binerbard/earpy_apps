@@ -39,9 +39,8 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
 
   void _togglePlayPause() {
     if (controller.isPlaying.value) {
-      controller.pauseAudio();
+      controller.stopAudio();
     } else {
-      controller.getCurrentTimes();
       controller
           .playAudio('ocean_waves.mp3'); // Ganti dengan nama file audio Anda
     }

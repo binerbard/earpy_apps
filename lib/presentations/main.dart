@@ -11,7 +11,7 @@ class InitialApp extends StatelessWidget {
     return GetMaterialApp(
       title: "Earpy Application",
       getPages: RoutesInit.ROUTES,
-      initialRoute: Alias.INITIAL,
+      initialRoute: Alias.initial,
     );
   }
 }

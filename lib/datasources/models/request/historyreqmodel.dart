@@ -14,8 +14,10 @@ class HistoryModel {
   String id;
   String date;
   String day;
+  String dayperiod;
   String month;
-  String time;
+  String startTime;
+  String endTime;
   String duration;
   String? note;
 
@@ -23,8 +25,10 @@ class HistoryModel {
     required this.id,
     required this.date,
     required this.day,
+    required this.dayperiod,
     required this.month,
-    required this.time,
+    required this.startTime,
+    required this.endTime,
     required this.duration,
     required this.note,
   });
@@ -34,8 +38,10 @@ class HistoryModel {
       id: json['id'] as String,
       date: json['date'] as String,
       day: json['day'] as String,
+      dayperiod: json['dayperiod'] as String,
       month: json['month'] as String,
-      time: json['time'] as String,
+      startTime: json['startTime'] as String,
+      endTime: json['endTime'] as String,
       duration: json['duration'] as String,
       note: json['note'] as String?,
     );
@@ -46,8 +52,10 @@ class HistoryModel {
       'id': id,
       'date': date,
       'day': day,
+      'dayperiod': dayperiod,
       'month': month,
-      'time': time,
+      'startTime': startTime,
+      'endTime': endTime,
       'duration': duration,
       'note': note,
     };

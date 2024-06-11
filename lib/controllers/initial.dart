@@ -1,6 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:earpy_app/datasources/models/historymodel.dart';
+import 'package:earpy_app/datasources/models/request/historyreqmodel.dart';
+import 'package:earpy_app/datasources/repositories/historyrepository.dart';
+import 'package:earpy_app/logic/utils/alert.dart';
 import 'package:earpy_app/logic/utils/dateformat.dart';
+import 'package:earpy_app/routes/path.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 
@@ -12,9 +15,12 @@ class InitialController extends GetxController {
   var isPlaying = false.obs;
   var isPlayingAudio = false.obs;
   var timeElapsed = 0.obs;
+  var startTime = " ".obs;
+  var endTime = " ".obs;
   var duration = "".obs;
   late Timer timer;
-  final uuid = Uuid();
+  final listHistory = [].obs;
+  final uuid = const Uuid();
 
   @override
   void onInit() {
@@ -35,21 +41,23 @@ class InitialController extends GetxController {
       isPlaying.value = true;
       currentTrack.value = fileName;
       isPlayingAudio.value = true;
+      startTime.value = getCurrentTime();
       startTimer();
     } catch (e) {
       print("Error playing audio: $e");
     }
   }
 
-  void pauseAudio() async {
-    try {
-      await audioPlayer.pause();
-      isPlaying.value = false;
-      timer.cancel();
-    } catch (e) {
-      print("Error pausing audio: $e");
-    }
-  }
+  // void pauseAudio() async {
+  //   try {
+  //     await audioPlayer.pause();
+  //     isPlaying.value = false;
+  //     timer.cancel();
+  //     endTime.value = getCurrentTime();
+  //   } catch (e) {
+  //     print("Error pausing audio: $e");
+  //   }
+  // }
 
   void stopAudio() async {
     try {
@@ -59,38 +67,37 @@ class InitialController extends GetxController {
       isPlayingAudio.value = false;
       timer.cancel();
       timeElapsed.value = 0;
+      endTime.value = getCurrentTime();
+      getCurrentTimes();
     } catch (e) {
       print("Error stopping audio: $e");
     }
   }
 
-  void getCurrentTimes() {
+  void getCurrentTimes() async {
     // Implementasikan sesuai kebutuhan Anda
     String currentDate = getCurrentDate();
-    String currentTime = getCurrentTime();
     String nameMonth = getFormattedMonthInID();
     String nameDay = getFormattedDayInID();
     String nameTime = getTimeStatusInID();
     String id = uuid.v4();
-    // print(currentDate +
-    //     " " +
-    //     currentTime +
-    //     " " +
-    //     nameMonth +
-    //     " " +
-    //     nameDay +
-    //     " " +
-    //     nameTime);
-    var responseData = HistoryModel(
+    var requestHistory = HistoryModel(
         id: id,
         date: currentDate,
         day: nameDay,
         month: nameMonth,
-        time: currentTime,
+        dayperiod: nameTime,
+        startTime: startTime.value,
+        endTime: endTime.value,
         duration: duration.value,
-        note: nameTime);
-    // print(
-    //     "Times : $currentTime\nDate : $currentDate\nMonth : $nameMonth \nDay : ${getFormattedDayInID()}\nTime : ${getTimeStatusInID()}");
+        note: "");
+    final storeHistory =
+        await HistoryRepositoryImpl().addHistory(requestHistory);
+    storeHistory.fold((l) => Alert.error(message: l), (r) {
+      Alert.success(
+          message:
+              "Berhasil memasukan data, ${r.day} ${r.dayperiod}, ${r.date}");
+    });
   }
 
   void startTimer() {
@@ -118,14 +125,14 @@ class InitialController extends GetxController {
   }
 
   void gotoJournal() {
-    Get.toNamed('/daily_journal');
+    Get.toNamed(Alias.dailyJournal);
   }
 
   void gotoTrack() {
-    Get.toNamed('/mood_track');
+    Get.toNamed(Alias.moodTrack);
   }
 
   void gotoInstruction() {
-    Get.toNamed('/breath_instruction');
+    Get.toNamed(Alias.breathInstruction);
   }
 }

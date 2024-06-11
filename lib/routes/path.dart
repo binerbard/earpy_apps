@@ -2,8 +2,11 @@
 
 abstract class Alias {
   Alias._();
-  static const INITIAL = '/initial';
-  static const DAILY_JOURNAL = '/daily_journal';
-  static const MOOD_TRACK = '/mood_track';
-  static const BREATH_INSTRUCTION = '/breath_instruction';
+  static const initial = '/initial';
+  static const dailyJournal = '/daily_journal';
+  static const moodTrack = '/mood_track';
+  static const breathInstruction = '/breath_instruction';
+  static const historyList = '/hisotry_list';
+  static const note = '/note';
+  static const notesDisplay = '/notes_display';
 }

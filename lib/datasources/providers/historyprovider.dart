@@ -1,5 +1,5 @@
 import 'package:earpy_app/configs/session.dart';
-import 'package:earpy_app/datasources/models/historymodel.dart';
+import 'package:earpy_app/datasources/models/request/historyreqmodel.dart';
 import 'package:collection/collection.dart'; // Tambahkan ini untuk firstWhereOrNull
 
 abstract class HistoryProviderAbs {
@@ -20,13 +20,13 @@ class HistoryProviderImpl extends SessionStorage implements HistoryProviderAbs {
   Future<void> addHistory(HistoryModel history) async {
     final data = await getListHistory();
     data.add(history);
-    write(key: cacheListHistory, data: data.map((e) => e.toJson()).toList());
+    await write(cacheListHistory, data.map((e) => e.toJson()).toList());
     cacheCount(data.length); // Update cache count after adding new history
   }
 
   @override
   Future<List<HistoryModel>> getListHistory() async {
-    final cachedList = read(key: cacheListHistory);
+    final cachedList = await read(cacheListHistory);
 
     if (cachedList is List<HistoryModel>) {
       return cachedList;
@@ -40,24 +40,24 @@ class HistoryProviderImpl extends SessionStorage implements HistoryProviderAbs {
 
   @override
   Future<int> getCountHistory() async {
-    final count = read(key: cacheCountHistory);
+    final count = await read(cacheCountHistory);
     return count ?? 0;
   }
 
   @override
-  void cacheCount(int total) {
-    write(key: cacheCountHistory, data: total);
+  void cacheCount(int total) async {
+    await write(cacheCountHistory, total);
   }
 
   @override
-  void cacheHistory(List<HistoryModel> history) {
-    final cachedList = read(key: cacheListHistory);
+  void cacheHistory(List<HistoryModel> history) async {
+    final cachedList = await read(cacheListHistory);
     final list = cachedList is List<dynamic>
         ? cachedList.map((e) => HistoryModel.fromJson(e)).toList()
         : [];
 
     list.addAll(history);
-    write(key: cacheListHistory, data: list.map((e) => e.toJson()).toList());
+    write(cacheListHistory, list.map((e) => e.toJson()).toList());
     cacheCount(list.length); // Update cache count after caching new history
   }
 

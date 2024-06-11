@@ -1,3 +1,6 @@
+import 'package:earpy_app/controllers/notecontroller.dart';
+import 'package:earpy_app/controllers/notesdisplaycontroller.dart';
+import 'package:earpy_app/controllers/historylistcontroller.dart';
 import 'package:earpy_app/controllers/instructioncontroller.dart';
 import 'package:earpy_app/controllers/journalcontroller.dart';
 import 'package:earpy_app/controllers/trackcontroller.dart';
@@ -33,5 +36,29 @@ class InstructionBinding extends Bindings {
   void dependencies() {
     // TODO: implement dependencies
     Get.lazyPut<InstructionController>(() => InstructionController());
+  }
+}
+
+class HistoryListBinding extends Bindings {
+  @override
+  void dependencies() {
+    // TODO: implement dependencies
+    Get.lazyPut<HistoryListController>(() => HistoryListController());
+  }
+}
+
+class NotesDisplayBinding extends Bindings {
+  @override
+  void dependencies() {
+    // TODO: implement dependencies
+    Get.lazyPut<NotesDisplayController>(() => NotesDisplayController());
+  }
+}
+
+class NoteBinding extends Bindings {
+  @override
+  void dependencies() {
+    // TODO: implement dependencies
+    Get.lazyPut<NoteController>(() => NoteController());
   }
 }

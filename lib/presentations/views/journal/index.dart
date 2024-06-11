@@ -1,8 +1,11 @@
 import 'package:earpy_app/controllers/journalcontroller.dart';
+import 'package:earpy_app/presentations/components/Button/addnotesbutton.dart';
 import 'package:earpy_app/presentations/components/Button/backbutton.dart';
+import 'package:earpy_app/presentations/components/Card/historycard.dart';
+import 'package:earpy_app/presentations/components/Card/lashistorycard.dart';
+import 'package:earpy_app/presentations/components/Card/notescard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../components/Card/card.dart';
 
 class JournalView extends GetView<JournalController> {
   const JournalView({super.key});
@@ -31,16 +34,65 @@ class JournalView extends GetView<JournalController> {
               ),
             ),
             const SizedBox(height: 20),
-            // Expanded(
-            //   child: ListView(
-            //     padding: const EdgeInsets.all(20),
-            //     children: const <Widget>[
-            //       JournalCard(text: 'History klik play'),
-            //       SizedBox(height: 20),
-            //       JournalCard(text: 'Catatan'),
-            //     ],
-            //   ),
-            // ),
+            HistoryCard(
+              child: Obx(() {
+                final lastHistory = controller.lastHistory.value;
+                if (lastHistory != null) {
+                  return Column(
+                    children: [
+                      LastHisotryCard(
+                        data: lastHistory,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          controller.gotoListHistories();
+                        },
+                        child: Container(
+                          width: Get.width,
+                          padding: const EdgeInsets.all(5),
+                          child: const Center(
+                              child: Column(
+                            children: [
+                              Text(
+                                "See More",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Colors.pinkAccent),
+                              ),
+                              Icon(Icons.keyboard_arrow_down_outlined)
+                            ],
+                          )),
+                        ),
+                      )
+                    ],
+                  );
+                }
+                return Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: const Center(
+                    child: Text(
+                      "History Belum Tersedia",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                );
+              }),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            NotesCardSection(
+              widget: Column(
+                children: [
+                  AddNotesButton(onTap: () {
+                    controller.gotoNotes();
+                  })
+                ],
+              ),
+            )
           ],
         ),
       ),
