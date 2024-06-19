@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorInitial extends Color {
-  ColorInitial(int val) : super(val);
+  ColorInitial(super.val);
 
   static const Color primary = Colors.blue;
   static const Color primarySecond = Color.fromARGB(255, 165, 209, 246);

@@ -18,16 +18,16 @@ class EarpyBackButton extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.arrow_back,
               color: Colors.pinkAccent,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
               title, // Remove "${}" to directly use variable
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 color: Colors.pinkAccent,
                 fontWeight: FontWeight.bold,

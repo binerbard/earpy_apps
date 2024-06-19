@@ -35,7 +35,7 @@ class HistoryRepositoryImpl implements HistoryRepositoryAbs {
 
         return Right(historiesData);
       }
-      return const Left("Data Tidak Tersedia");
+      return const Left("History Belum Tersedia");
     } catch (e) {
       return const Left("Terjadi Kesalahan Pada Data");
     }

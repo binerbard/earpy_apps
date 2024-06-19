@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class NotesCardSection extends StatelessWidget {
@@ -19,7 +18,7 @@ class NotesCardSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Note",
             style: TextStyle(
                 fontSize: 16,
@@ -27,8 +26,8 @@ class NotesCardSection extends StatelessWidget {
                 color: Colors.pinkAccent),
           ),
           Container(
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.all(5),
+              margin: const EdgeInsets.symmetric(vertical: 10),
               width: Get.width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),

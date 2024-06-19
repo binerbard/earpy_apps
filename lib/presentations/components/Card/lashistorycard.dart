@@ -20,22 +20,22 @@ class LastHisotryCard extends StatelessWidget {
               Icons.watch_later_outlined,
               color: Colors.pinkAccent,
             ),
-            Text("${data.duration}")
+            Text(data.duration)
           ],
         ),
         leading: Column(
           children: [
             Text(
-              "${data.month}",
+              data.month,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
-            Icon(Icons.calendar_month_outlined),
+            const Icon(Icons.calendar_month_outlined),
           ],
         ),
         subtitle: Text(
             "(${data.startTime} - ${data.endTime})\n${data.day} ${data.dayperiod}"),
         title: Text(
-          "${data.date}",
+          data.date,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),

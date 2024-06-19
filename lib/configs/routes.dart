@@ -5,7 +5,7 @@ class PathRoutes {
   static GetPage create(
       {required String alias,
       required Widget Function() view,
-      required Bindings bindings}) {
+      Bindings? bindings}) {
     return GetPage(name: alias, page: view, binding: bindings);
   }
 }

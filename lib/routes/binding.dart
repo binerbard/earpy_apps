@@ -59,6 +59,7 @@ class NoteBinding extends Bindings {
   @override
   void dependencies() {
     // TODO: implement dependencies
+    Get.lazyPut<JournalController>(() => JournalController());
     Get.lazyPut<NoteController>(() => NoteController());
   }
 }

@@ -64,7 +64,7 @@ class HistoryListView extends GetView<HistoryListController> {
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  leading: Icon(Icons.timeline),
+                                  leading: const Icon(Icons.timeline),
                                   trailing: Text.rich(
                                     TextSpan(
                                       children: [

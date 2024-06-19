@@ -71,13 +71,12 @@ class JournalView extends GetView<JournalController> {
                 return Container(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Center(
-                    child: Text(
-                      "History Belum Tersedia",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                    ),
-                  ),
+                  child: Center(
+                      child: Obx(() => Text(
+                            controller.messageHistory.value,
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w400),
+                          ))),
                 );
               }),
             ),
@@ -89,7 +88,65 @@ class JournalView extends GetView<JournalController> {
                 children: [
                   AddNotesButton(onTap: () {
                     controller.gotoNotes();
-                  })
+                  }),
+                  SizedBox(
+                    height: Get.height / 3,
+                    child: SingleChildScrollView(
+                      child: Obx(() {
+                        if (controller.listNotes.isNotEmpty) {
+                          return Column(
+                            children: controller.listNotes
+                                .map((el) => Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.pinkAccent.shade700,
+                                              Colors.pinkAccent.shade400
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: ListTile(
+                                        onTap: () {
+                                          controller.gotoNoteDisplay(el.id);
+                                        },
+                                        contentPadding:
+                                            const EdgeInsets.all(15),
+                                        title: Text(
+                                          el.title,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        leading: const Icon(
+                                          Icons.blur_circular_rounded,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                          );
+                        }
+                        return Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          child: Center(
+                              child: Obx(() => Text(
+                                    controller.messageNotes.value,
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  ))),
+                        );
+                      }),
+                    ),
+                  ),
                 ],
               ),
             )
