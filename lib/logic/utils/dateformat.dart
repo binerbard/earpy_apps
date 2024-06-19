@@ -1,14 +1,12 @@
+import 'package:earpy_app/datasources/models/request/moodreqmodel.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
-String getCurrentDate() {
-  return DateFormat('dd-MM-yyyy').format(DateTime.now());
-}
+String getCurrentDate() => DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-String getCurrentTime() {
-  return DateFormat('HH:mm:ss').format(DateTime.now());
-}
+String getCurrentTime() => DateFormat('HH:mm:ss').format(DateTime.now());
 
-String getFormattedMonthInID() {
+String getFormattedMonthInID(DateTime dateTime) {
   const List<String> months = [
     'Januari',
     'Februari',
@@ -23,11 +21,10 @@ String getFormattedMonthInID() {
     'November',
     'Desember'
   ];
-  DateTime now = DateTime.now();
-  return months[(now.month) - 1];
+  return months[dateTime.month - 1];
 }
 
-String getFormattedDayInID() {
+String getFormattedDayInID(DateTime dateTime) {
   const List<String> days = [
     'Minggu',
     'Senin',
@@ -37,13 +34,11 @@ String getFormattedDayInID() {
     'Jumat',
     'Sabtu'
   ];
-  DateTime now = DateTime.now();
-  return days[(now.weekday % 7)];
+  return days[dateTime.weekday % 7];
 }
 
-String getTimeStatusInID() {
-  DateTime now = DateTime.now();
-  int hour = now.hour;
+String getTimeStatusInID(DateTime dateTime) {
+  final int hour = dateTime.hour;
 
   if (hour >= 5 && hour < 12) {
     return 'Pagi';
@@ -54,4 +49,24 @@ String getTimeStatusInID() {
   } else {
     return 'Malam';
   }
+}
+
+List<MoodTrack> getDatesForMood(int month, int year) {
+  final firstDayOfMonth = DateTime(year, month, 1);
+  final lastDayOfMonth =
+      DateTime(year, month + 1).subtract(const Duration(days: 1));
+  final difference = lastDayOfMonth.difference(firstDayOfMonth).inDays + 1;
+  const uuid = Uuid();
+
+  return List<MoodTrack>.generate(difference, (index) {
+    final date = DateFormat('yyyy-MM-dd')
+        .format(firstDayOfMonth.add(Duration(days: index)));
+    final emoji = date.split('-').last;
+    return MoodTrack(
+      id: uuid.v4(),
+      date: date,
+      emoji: emoji,
+      content: '',
+    );
+  });
 }

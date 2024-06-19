@@ -77,9 +77,9 @@ class InitialController extends GetxController {
   void getCurrentTimes() async {
     // Implementasikan sesuai kebutuhan Anda
     String currentDate = getCurrentDate();
-    String nameMonth = getFormattedMonthInID();
-    String nameDay = getFormattedDayInID();
-    String nameTime = getTimeStatusInID();
+    String nameMonth = getFormattedMonthInID(currentDate as DateTime);
+    String nameDay = getFormattedDayInID(currentDate as DateTime);
+    String nameTime = getTimeStatusInID(currentDate as DateTime);
     String id = uuid.v4();
     var requestHistory = HistoryModel(
         id: id,
