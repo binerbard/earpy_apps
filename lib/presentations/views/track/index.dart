@@ -25,6 +25,7 @@ class TrackView extends GetView<TrackController> {
                 _buildTitle(),
                 const SizedBox(height: 20),
                 _buildCardWrapper(),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -37,7 +38,7 @@ class TrackView extends GetView<TrackController> {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.pinkAccent, Colors.purpleAccent],
+          colors: [Colors.pinkAccent, Colors.purple],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -78,11 +79,6 @@ class TrackView extends GetView<TrackController> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Today is :",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.grey)),
                     Text(controller.nameday.value,
                         style: const TextStyle(
                             fontSize: 32,
@@ -95,16 +91,37 @@ class TrackView extends GetView<TrackController> {
                             color: Colors.grey)),
                   ],
                 ),
-                CircleIconButton(
-                  icon: Icons.date_range,
-                  onTap: () async {
-                    final year = int.parse(controller.dateNow.split("-")[0]);
-                    // print(year);
-                    final picker = await Get.dialog(StateDatePickerMonthYear(
-                      thisYear: year,
-                    ));
-                    print(picker);
-                  },
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: CircleIconButton(
+                        icon: Icons.replay_circle_filled,
+                        onTap: () async {
+                          controller.resetDateNow();
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: CircleIconButton(
+                        icon: Icons.date_range,
+                        onTap: () async {
+                          // print(year);
+                          final picker =
+                              await Get.dialog(StateDatePickerMonthYear(
+                            thisYear: controller.now.year,
+                            thisMonth: controller.now.month,
+                          ));
+
+                          if (picker != null) {
+                            controller.setDateNow(
+                                picker["month"], picker["year"]);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -116,22 +133,24 @@ class TrackView extends GetView<TrackController> {
             height: 2,
           ),
           Obx(
-            () => Wrap(
-              spacing: 5,
-              runSpacing: 5,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runAlignment: WrapAlignment.center,
-              alignment: WrapAlignment.center,
-              children: controller.listDate.map((e) {
-                final today = int.parse(e.date.split("-")[2]);
-                final currentDate = int.parse(controller.dateNow.split("-")[2]);
-
-                return StateMoodCard(
-                  mood: e,
-                  onTap: () => controller.addMood(),
-                  isToday: today <= currentDate,
-                );
-              }).toList(),
+            () => Center(
+              child: Wrap(
+                spacing: 5,
+                runSpacing: 5,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runAlignment: WrapAlignment.center,
+                alignment: WrapAlignment.center,
+                children: controller.listDate.map((e) {
+                  return StateMoodCard(
+                    mood: e,
+                    onTap: () => controller.addMood(),
+                    isToday: DateTime.parse(e.date).day == controller.now.day &&
+                        DateTime.parse(e.date).month == controller.now.month &&
+                        DateTime.parse(e.date).year == controller.now.year,
+                    isAvailable: controller.now.isAfter(DateTime.parse(e.date)),
+                  );
+                }).toList(),
+              ),
             ),
           ),
         ],

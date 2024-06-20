@@ -62,7 +62,10 @@ class AlertDialogEmoji extends StatelessWidget {
                             ),
                           ),
                         ),
-                        ButtonTitleRadius(onTap: onAccept, title: "Send"),
+                        ButtonTitleRadius(
+                          onTap: onAccept,
+                          title: "Send",
+                        ),
                       ],
                     ),
                   ),

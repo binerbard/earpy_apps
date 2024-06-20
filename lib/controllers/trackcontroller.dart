@@ -26,7 +26,7 @@ class TrackController extends GetxController {
   @override
   void onInit() {
     initialSelectedEmoji();
-    getDateNow();
+    resetDateNow();
     super.onInit();
   }
 
@@ -40,8 +40,15 @@ class TrackController extends GetxController {
     emojiSelected.value = emojiOption.first;
   }
 
-  void getDateNow() {
+  void resetDateNow() {
     listDate.value = getDatesForMood(now.month, now.year);
+  }
+
+  void setDateNow(String month, String year) {
+    int setMonth = int.parse(month);
+    int setYear = int.parse(year);
+    final dateForMood = getDatesForMood(setMonth, setYear);
+    listDate.value = dateForMood;
   }
 
   void onAccept() {

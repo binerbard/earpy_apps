@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 
 class StateDatePickerMonthYear extends StatelessWidget {
   final int thisYear;
+  final int thisMonth;
   const StateDatePickerMonthYear({
     super.key,
     required this.thisYear,
+    required this.thisMonth,
   }) : assert(thisYear >= 0);
 
   int _yearLogic(int index) {
@@ -71,7 +73,8 @@ class StateDatePickerMonthYear extends StatelessWidget {
                         )));
                   }),
               DecorationListWheel(
-                  onSelectedItemChanged: (p0) => monthResult = _monthLogic(p0),
+                  onSelectedItemChanged: (p0) =>
+                      monthResult = (p0 + 1).toString(),
                   childCount: 12,
                   builder: (BuildContext context, int index) {
                     return SizedBox(
@@ -93,7 +96,7 @@ class StateDatePickerMonthYear extends StatelessWidget {
                 onTap: () {
                   yearResult =
                       yearResult.isEmpty ? thisYear.toString() : yearResult;
-                  monthResult = monthResult.isEmpty ? "Januari" : monthResult;
+                  monthResult = monthResult.isEmpty ? "1" : monthResult;
                   Get.back(result: {"year": yearResult, "month": monthResult});
                 },
                 title: "Accept"),
