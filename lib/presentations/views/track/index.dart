@@ -1,6 +1,8 @@
 import 'package:earpy_app/controllers/trackcontroller.dart';
-import 'package:earpy_app/datasources/models/request/moodreqmodel.dart';
 import 'package:earpy_app/presentations/components/Button/backbutton.dart';
+import 'package:earpy_app/presentations/components/Button/circleiconbutton.dart';
+import 'package:earpy_app/presentations/components/StateComponent/datepickermonthyear.dart';
+import 'package:earpy_app/presentations/components/StateComponent/statemoodcard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,17 +14,19 @@ class TrackView extends GetView<TrackController> {
     return Scaffold(
       body: _buildBackground(
         SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 40),
-              EarpyBackButton(
-                onTap: () {},
-              ),
-              const SizedBox(height: 40),
-              _buildTitle(),
-              const SizedBox(height: 20),
-              _buildCardWrapper(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 40),
+                EarpyBackButton(
+                  onTap: () {},
+                ),
+                const SizedBox(height: 40),
+                _buildTitle(),
+                const SizedBox(height: 20),
+                _buildCardWrapper(),
+              ],
+            ),
           ),
         ),
       ),
@@ -63,48 +67,74 @@ class TrackView extends GetView<TrackController> {
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: Colors.pinkAccent),
       ),
-      child: SizedBox(
-        height: Get.height * 0.6,
-        child: SingleChildScrollView(
-          child: Obx(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: (10)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Today is :",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.grey)),
+                    Text(controller.nameday.value,
+                        style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.pinkAccent)),
+                    Text(controller.today.value,
+                        style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.grey)),
+                  ],
+                ),
+                CircleIconButton(
+                  icon: Icons.date_range,
+                  onTap: () async {
+                    final year = int.parse(controller.dateNow.split("-")[0]);
+                    // print(year);
+                    final picker = await Get.dialog(StateDatePickerMonthYear(
+                      thisYear: year,
+                    ));
+                    print(picker);
+                  },
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            color: Colors.pinkAccent,
+            width: Get.width,
+            height: 2,
+          ),
+          Obx(
             () => Wrap(
               spacing: 5,
               runSpacing: 5,
               crossAxisAlignment: WrapCrossAlignment.center,
               runAlignment: WrapAlignment.center,
               alignment: WrapAlignment.center,
-              children: controller.listDate.map(_buildMoodCard).toList(),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+              children: controller.listDate.map((e) {
+                final today = int.parse(e.date.split("-")[2]);
+                final currentDate = int.parse(controller.dateNow.split("-")[2]);
 
-  Widget _buildMoodCard(MoodTrack mood) {
-    return Container(
-      margin: const EdgeInsets.all(5),
-      width: Get.width / 5,
-      height: Get.width / 5,
-      child: InkWell(
-        onTap: () => controller.addMood(),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.pinkAccent),
-              color: Colors.pinkAccent),
-          child: Center(
-            child: Text(
-              mood.emoji,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+                return StateMoodCard(
+                  mood: e,
+                  onTap: () => controller.addMood(),
+                  isToday: today <= currentDate,
+                );
+              }).toList(),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

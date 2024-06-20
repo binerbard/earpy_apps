@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 
 class TrackController extends GetxController {
   final now = DateTime.now();
+  final nameday = "".obs;
+  final today = "".obs;
   final dateNow = DateFormat('yyyy-MM-dd').format(DateTime.now());
   final content = TextEditingController();
   final listDate = <MoodTrack>[].obs;
@@ -29,6 +31,12 @@ class TrackController extends GetxController {
   }
 
   void initialSelectedEmoji() {
+    nameday.value = getFormattedDayInID(now);
+    String month = getFormattedMonthInID(now);
+    List<String> fetchDate = dateNow.split("-");
+
+    today.value = "${fetchDate[2]}-$month-${fetchDate[0]}";
+
     emojiSelected.value = emojiOption.first;
   }
 
