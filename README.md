@@ -108,15 +108,29 @@ Aplikasi ini dilisensikan di bawah MIT License.
 
 ---
 
-# Beranda
+## Audio Relaksasi
 
-# Audio Relaksasi
+![beranda](https://raw.githubusercontent.com/binerbard/earpy_apps/main/doc/assets/branda.png)
 
-# Jurnal Harian
+## Jurnal Harian
 
-# Pelacakan Suasana Hati
+![daily journal](https://raw.githubusercontent.com/binerbard/earpy_apps/main/doc/assets/dailyjournal.png)
 
-# Instruksi Pernapasan
+## Journal Riwayat
+
+![daily journal](https://raw.githubusercontent.com/binerbard/earpy_apps/main/doc/assets/historyjournal.png)
+
+## Note
+
+![daily journal](https://raw.githubusercontent.com/binerbard/earpy_apps/main/doc/assets/note.png)
+
+## Mood Track
+
+![daily journal](https://raw.githubusercontent.com/binerbard/earpy_apps/main/doc/assets/moodtrack.png)
+
+## Mood Track Add
+
+![daily journal](https://raw.githubusercontent.com/binerbard/earpy_apps/main/doc/assets/addmood.png)
 
 ---
 
