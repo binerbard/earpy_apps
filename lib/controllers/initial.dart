@@ -48,17 +48,6 @@ class InitialController extends GetxController {
     }
   }
 
-  // void pauseAudio() async {
-  //   try {
-  //     await audioPlayer.pause();
-  //     isPlaying.value = false;
-  //     timer.cancel();
-  //     endTime.value = getCurrentTime();
-  //   } catch (e) {
-  //     print("Error pausing audio: $e");
-  //   }
-  // }
-
   void stopAudio() async {
     try {
       await audioPlayer.stop();
@@ -70,16 +59,17 @@ class InitialController extends GetxController {
       endTime.value = getCurrentTime();
       getCurrentTimes();
     } catch (e) {
-      print("Error stopping audio: $e");
+      print("Error stoppin audio: $e");
     }
   }
 
   void getCurrentTimes() async {
     // Implementasikan sesuai kebutuhan Anda
     String currentDate = getCurrentDate();
-    String nameMonth = getFormattedMonthInID(currentDate as DateTime);
-    String nameDay = getFormattedDayInID(currentDate as DateTime);
-    String nameTime = getTimeStatusInID(currentDate as DateTime);
+    DateTime convertDate = DateTime.now();
+    String nameMonth = getFormattedMonthInID(convertDate);
+    String nameDay = getFormattedDayInID(convertDate);
+    String nameTime = getTimeStatusInID(convertDate);
     String id = uuid.v4();
     var requestHistory = HistoryModel(
         id: id,

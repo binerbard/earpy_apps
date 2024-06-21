@@ -115,12 +115,12 @@ class NoteView extends GetView<NoteController> {
       controller: controller.title,
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Title is required';
+          return 'Judul wajib diisi..';
         }
         return null;
       },
       decoration: const InputDecoration(
-        labelText: 'Title',
+        labelText: 'Judul',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
@@ -133,7 +133,7 @@ class NoteView extends GetView<NoteController> {
       controller: controller.content,
       keyboardType: TextInputType.multiline,
       decoration: const InputDecoration(
-        labelText: 'Typing here...',
+        labelText: 'Tulis disini..',
         alignLabelWithHint: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),

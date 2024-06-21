@@ -124,7 +124,7 @@ class NotesDisplayView extends GetView<NotesDisplayController> {
     controller.openButtomSheet(
       ButtomSheetDelete(
         onDelete: () => controller.gotoAccpeteDelete(controller.idNote.value),
-        onCancel: () => controller.gotoCancelDelete,
+        onCancel: () => controller.gotoCancelDelete(),
       ),
     );
   }

@@ -51,22 +51,23 @@ String getTimeStatusInID(DateTime dateTime) {
   }
 }
 
-List<MoodTrack> getDatesForMood(int month, int year) {
+List<MoodTrackReqModel> getDatesForMood(int month, int year) {
   final firstDayOfMonth = DateTime(year, month, 1);
   final lastDayOfMonth =
       DateTime(year, month + 1).subtract(const Duration(days: 1));
   final difference = lastDayOfMonth.difference(firstDayOfMonth).inDays + 1;
   const uuid = Uuid();
 
-  return List<MoodTrack>.generate(difference, (index) {
+  return List<MoodTrackReqModel>.generate(difference, (index) {
     final date = DateFormat('yyyy-MM-dd')
         .format(firstDayOfMonth.add(Duration(days: index)));
-    final emoji = date.split('-').last;
-    return MoodTrack(
+    final number = date.split('-').last;
+    return MoodTrackReqModel(
       id: uuid.v4(),
+      number: number,
       date: date,
-      emoji: emoji,
-      content: '',
+      emoji: null,
+      content: null,
     );
   });
 }

@@ -1,40 +1,44 @@
 import 'dart:convert';
 
-MoodTrack moodTrackFromJson(String str) {
+MoodTrackReqModel moodTrackReqModelFromJson(String str) {
   final jsonData = json.decode(str);
-  return MoodTrack.fromJson(jsonData);
+  return MoodTrackReqModel.fromJson(jsonData);
 }
 
-String moodTrackToJson(MoodTrack data) {
+String moodTrackReqModelToJson(MoodTrackReqModel data) {
   final dyn = data.toJson();
   return json.encode(dyn);
 }
 
-class MoodTrack {
+class MoodTrackReqModel {
   String id;
+  String number;
   String date;
-  String emoji;
-  String content;
+  String? emoji;
+  String? content;
 
-  MoodTrack({
+  MoodTrackReqModel({
     required this.id,
+    required this.number,
     required this.date,
-    required this.content,
-    required this.emoji,
+    this.content,
+    this.emoji,
   });
 
-  factory MoodTrack.fromJson(Map<String, dynamic> json) {
-    return MoodTrack(
+  factory MoodTrackReqModel.fromJson(Map<String, dynamic> json) {
+    return MoodTrackReqModel(
       id: json['id'] as String,
+      number: json['number'] as String,
       date: json['date'] as String,
-      content: json['content'] as String,
-      emoji: json['dayperiod'] as String,
+      content: json['content'] as String?,
+      emoji: json['emoji'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'number': number,
       'date': date,
       'content': content,
       'emoji': emoji,

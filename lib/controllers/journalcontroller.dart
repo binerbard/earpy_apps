@@ -48,7 +48,7 @@ class JournalController extends GetxController {
   }
 
   void gotoEarpy() {
-    Get.back();
+    Get.offAllNamed(Alias.initial);
     // Get.toNamed(Path.earpy);
   }
 

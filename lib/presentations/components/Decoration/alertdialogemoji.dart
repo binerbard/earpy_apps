@@ -35,7 +35,7 @@ class AlertDialogEmoji extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 70),
-                const Text("How's your vibe today?"),
+                const Text("Bagaimana mood mu hari ini?"),
                 StateEmojiChoices(
                   emojiPresent: emojiPresent,
                   showTextField: showTextField,
@@ -53,7 +53,7 @@ class AlertDialogEmoji extends StatelessWidget {
                             controller: content,
                             keyboardType: TextInputType.multiline,
                             decoration: const InputDecoration(
-                              labelText: 'Can you tell me?',
+                              labelText: 'Saya merasa lebih baik...',
                               alignLabelWithHint: true,
                               border: OutlineInputBorder(
                                 borderRadius:
@@ -64,7 +64,7 @@ class AlertDialogEmoji extends StatelessWidget {
                         ),
                         ButtonTitleRadius(
                           onTap: onAccept,
-                          title: "Send",
+                          title: "Kirim",
                         ),
                       ],
                     ),
@@ -72,7 +72,7 @@ class AlertDialogEmoji extends StatelessWidget {
                 ),
                 ButtonTitleRadius(
                   onTap: onCancel,
-                  title: "Cancel",
+                  title: "Tidak",
                   invert: true,
                 ),
               ],

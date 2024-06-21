@@ -46,7 +46,7 @@ class StateDatePickerMonthYear extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "Select Month and Year",
+              "Pilih Tahun dan Bulan",
               style: TextStyle(
                   color: Colors.grey.shade800,
                   fontSize: 24,
@@ -99,12 +99,12 @@ class StateDatePickerMonthYear extends StatelessWidget {
                   monthResult = monthResult.isEmpty ? "1" : monthResult;
                   Get.back(result: {"year": yearResult, "month": monthResult});
                 },
-                title: "Accept"),
+                title: "Terapkan"),
             ButtonTitleRadius(
               onTap: () {
                 Get.back();
               },
-              title: "Cancel",
+              title: "Tidak",
               invert: true,
             )
           ],

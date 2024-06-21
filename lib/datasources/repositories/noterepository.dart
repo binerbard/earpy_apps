@@ -13,7 +13,6 @@ abstract class NoteRepositoryAbs {
 
 class NoteRepositoryImpl implements NoteRepositoryAbs {
   final local = NoteProviderImpl();
-  late Either<String, NoteModel> response;
 
   @override
   Future<Either<String, NoteModel>> addNote(NoteModel note) async {

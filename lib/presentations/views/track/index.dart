@@ -19,7 +19,7 @@ class TrackView extends GetView<TrackController> {
               children: [
                 const SizedBox(height: 40),
                 EarpyBackButton(
-                  onTap: () {},
+                  onTap: () => controller.gotoEarpy(),
                 ),
                 const SizedBox(height: 40),
                 _buildTitle(),
@@ -36,6 +36,7 @@ class TrackView extends GetView<TrackController> {
 
   Widget _buildBackground(Widget child) {
     return Container(
+      height: Get.height,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [Colors.pinkAccent, Colors.purple],
@@ -140,10 +141,10 @@ class TrackView extends GetView<TrackController> {
                 crossAxisAlignment: WrapCrossAlignment.center,
                 runAlignment: WrapAlignment.center,
                 alignment: WrapAlignment.center,
-                children: controller.listDate.map((e) {
+                children: controller.listMoodTrack.map((e) {
                   return StateMoodCard(
                     mood: e,
-                    onTap: () => controller.addMood(),
+                    onTap: () => controller.addMood(e.id),
                     isToday: DateTime.parse(e.date).day == controller.now.day &&
                         DateTime.parse(e.date).month == controller.now.month &&
                         DateTime.parse(e.date).year == controller.now.year,

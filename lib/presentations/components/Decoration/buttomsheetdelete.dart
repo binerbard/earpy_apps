@@ -21,7 +21,7 @@ class ButtomSheetDelete extends StatelessWidget {
         Row(
           children: [
             const Text(
-              "Hapus Note",
+              "Delete Note",
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class ButtomSheetDelete extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: onDelete,
-              child: const Text("Hapus",
+              child: const Text("Delete",
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold)),
             ),
